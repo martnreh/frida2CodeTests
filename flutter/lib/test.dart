@@ -1,84 +1,284 @@
-//File: account_details_screen.dart//
+//File: order_details_screen.dart//
 
 import 'package:flutter/material.dart';
 
-class AccountDetailsScreen extends StatelessWidget {
+class OrderDetailsScreen extends StatelessWidget {
+  const OrderDetailsScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color(0xffea002b),
-        leading: Icon(Icons.arrow_back),
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Detalle de cuenta'),
-            Text(
-              'Último acceso: 18/12/2023',
-              style: TextStyle(fontSize: 12),
-            ),
-          ],
-        ),
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-            child: Row(
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(Icons.flag, color: Colors.green),
-                SizedBox(width: 8.0),
+                const SizedBox(height: 24.0),
+                Row(
+                  children: [
+                    const Icon(Icons.arrow_back_ios, color: Color(0xFF223263)),
+                    const SizedBox(width: 8.0),
+                    Text(
+                      'Order Details',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF223263),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 24.0),
                 Text(
-                  'CUENTA DE CHEQUES - PESOS',
+                  'Products',
                   style: TextStyle(
+                    fontSize: 16,
                     fontWeight: FontWeight.bold,
+                    color: Color(0xFF223263),
+                  ),
+                ),
+                const SizedBox(height: 8.0),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    _buildProductCard(),
+                    _buildProductCard(),
+                  ],
+                ),
+                const SizedBox(height: 24.0),
+                Text(
+                  'Shipping Details',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF223263),
+                  ),
+                ),
+                const SizedBox(height: 8.0),
+                _buildShippingDetails(),
+                const SizedBox(height: 24.0),
+                Text(
+                  'Payment Details',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF223263),
+                  ),
+                ),
+                const SizedBox(height: 8.0),
+                _buildPaymentDetails(),
+                const SizedBox(height: 24.0),
+                Center(
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color(0xFF40bfff),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 100,
+                        vertical: 16,
+                      ),
+                    ),
+                    child: Text(
+                      'Notify Me',
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
                 ),
               ],
             ),
           ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: 7,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  leading: Container(
-                    width: 8.0,
-                    color: Color(0xffff671b),
-                  ),
-                  title: Text('Enlace Tradicion...'),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Cuenta ******5584'),
-                      Text('Saldo Disponible'),
-                    ],
-                  ),
-                  trailing: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('\$10,036,197,717.65'),
-                      Icon(Icons.chevron_right),
-                    ],
-                  ),
-                );
-              },
-            ),
-          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildProductCard() {
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(color: Color(0xFFd1d6e8)),
+        borderRadius: BorderRadius.circular(8.0),
+      ),
+      width: 160.0,
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
           Container(
-            width: double.infinity,
-            color: Color(0xff9f2455),
-            child: TextButton(
-              onPressed: () {},
-              child: Text(
-                'Confirmar Pedido',
-                style: TextStyle(color: Colors.white),
+            height: 100,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8.0),
+              color: Color(0xFFebf0ff),
+              image: const DecorationImage(
+                fit: BoxFit.contain,
+                image: NetworkImage('https://shorturl.at/7FYy7'),
               ),
             ),
-          )
+          ),
+          const SizedBox(height: 8.0),
+          Text(
+            'Nike Air Max 270 React ENG',
+            style: TextStyle(
+              color: Color(0xFF223263),
+              fontWeight: FontWeight.w500,
+              fontSize: 14,
+            ),
+          ),
+          const SizedBox(height: 4.0),
+          Row(
+            children: List.generate(
+              5,
+              (index) => Icon(
+                Icons.star,
+                size: 16,
+                color: index < 4 ? Color(0xFFFFC833) : Color(0xFFDADADA),
+              ),
+            ),
+          ),
+          const SizedBox(height: 4.0),
+          Text(
+            '\$299,43',
+            style: TextStyle(
+              color: Color(0xFF40bfff),
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+            ),
+          ),
+          const SizedBox(height: 2.0),
+          Row(
+            children: [
+              Text(
+                '\$534,33',
+                style: TextStyle(
+                  decoration: TextDecoration.lineThrough,
+                  color: Color(0xFF9098B1),
+                  fontSize: 12,
+                ),
+              ),
+              const SizedBox(width: 4.0),
+              Text(
+                '24% Off',
+                style: TextStyle(
+                  color: Color(0xFFFF7181),
+                  fontSize: 12,
+                ),
+              ),
+            ],
+          ),
         ],
       ),
+    );
+  }
+
+  Widget _buildShippingDetails() {
+    return Container(
+      padding: const EdgeInsets.all(16.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8.0),
+        border: Border.all(color: Color(0xFFd1d6e8)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildShippingRow('Date Shipping:', 'January 16, 2020'),
+          const SizedBox(height: 8.0),
+          _buildShippingRow('Shipping:', 'POS Reggular'),
+          const SizedBox(height: 8.0),
+          _buildShippingRow('No. Resi:', '000192848573'),
+          const SizedBox(height: 8.0),
+          _buildShippingRow(
+              'Address:', '2727 New  Owerri, Owerri, Imo State 78410'),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildShippingRow(String label, String value) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          label,
+          style: TextStyle(
+            color: Color(0xFF9098B1),
+          ),
+        ),
+        Text(
+          value,
+          style: TextStyle(
+            color: Color(0xFF223263),
+            fontSize: 14,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildPaymentDetails() {
+    return Container(
+      padding: const EdgeInsets.all(16.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8.0),
+        border: Border.all(color: Color(0xFFd1d6e8)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildPaymentRow('Items (3):', '\$598.86'),
+          const SizedBox(height: 8.0),
+          _buildPaymentRow('Shipping:', '\$40.00'),
+          const SizedBox(height: 8.0),
+          _buildPaymentRow('Import charges:', '\$128.00'),
+          const Divider(color: Color(0xFFDADADA)),
+          const SizedBox(height: 8.0),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Total Price',
+                style: TextStyle(
+                  color: Color(0xFF223263),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                ),
+              ),
+              Text(
+                '\$766.86',
+                style: TextStyle(
+                  color: Color(0xFF40bfff),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPaymentRow(String label, String value) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          label,
+          style: TextStyle(
+            color: Color(0xFF9098B1),
+          ),
+        ),
+        Text(
+          value,
+          style: TextStyle(
+            color: Color(0xFF223263),
+            fontSize: 14,
+          ),
+        ),
+      ],
     );
   }
 }
